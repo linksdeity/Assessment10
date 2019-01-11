@@ -1,21 +1,47 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<h1>WELCOME TO INTERNET FORUM</h1>
+
+<div *ngIf="showInput" >
+    POST TITLE:<input [(ngModel)]='labelThing' (keydown)="keyDownFunction($event)"/>
+  
+    <br />
+    POST BODY:<input  [(ngModel)]='inputThing'(keydown)="keyDownFunction($event)"/>
+
+    <br /><br />
+    <button (click)='addItem()'>POST!</button>or press enter...
+    <br /><br />
+    <button (click)='cancel()'>cancel</button>
+
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  
+  <button *ngIf="!showInput" (click)='newPost()'>New Post</button>
+
+
+  <ul *ngFor='let x of listThings.slice().reverse(); let i = index'>
+    <li>
+      <div [ngStyle]="setMyStyle(i)">
+        <div>
+        <h2>TITLE:</h2>
+        <h3>{{x.postTitle}}</h3>
+        </div>
+
+        <hr>
+
+        <div>
+        <h2>POST:</h2>
+        <h3>{{x.postBody}}</h3>
+        </div>
+
+        <hr>
+
+        <p>@ {{x.currentTime}}</p>
+        <p (click)="voting(i)"><i>This post makes me feel  {{x.vote}}  (click)</i></p>
+      </div>
+    </li>
+  </ul>
+  
+
+
+
 
 <router-outlet></router-outlet>
